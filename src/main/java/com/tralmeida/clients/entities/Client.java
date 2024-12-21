@@ -25,20 +25,20 @@ public class Client implements Serializable{
     private String telefone;
     
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant dtnascimento;
+    private Instant dtNascimento;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant dtinclusao;
+    private Instant dtInclusao;
     
     public Client() {
     }
     
-    public Client(Long id, String nome, String email, String telefone, Instant dtnascimento, Instant dtinclusao) {
+    public Client(Long id, String nome, String email, String telefone, Instant dtNascimento, Instant dtInclusao) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
-        this.dtnascimento = dtnascimento;
-        this.dtinclusao = dtinclusao;
+        this.dtNascimento = dtNascimento;
+        this.dtInclusao = dtInclusao;
     }
 
     public Long getId() {
@@ -73,20 +73,20 @@ public class Client implements Serializable{
         this.telefone = telefone;
     }
 
-    public Instant getDtnascimento() {
-        return dtnascimento;
+    public Instant getDtNascimento() {
+        return dtNascimento;
     }
 
-    public void setDtnascimento(Instant dtnascimento) {
-        this.dtnascimento = dtnascimento;
+    public void setDtNascimento(Instant dtNascimento) {
+        this.dtNascimento = dtNascimento;
     }
 
-    public Instant getDtinclusao() {
-        return dtinclusao;
+    public Instant getDtInclusao() {
+        return dtInclusao;
     }
 
-    public void setDtinclusao(Instant dtinclusao) {
-        this.dtinclusao = dtinclusao;
+    public void setDtInclusao(Instant dtInclusao) {
+        this.dtInclusao = dtInclusao;
     }
 
     @Override
@@ -96,8 +96,8 @@ public class Client implements Serializable{
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", telefone='" + telefone + '\'' +
-                ", dtnascimento=" + dtnascimento +
-                ", dtinclusao=" + dtinclusao +
+                ", dtnascimento=" + dtNascimento +
+                ", dtinclusao=" + dtInclusao +
                 '}';
     }
 
