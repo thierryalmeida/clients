@@ -52,6 +52,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupid>org.junit.vintage</groupid>
+					<artifactid>junit-vintage-engine</artifactid>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 
