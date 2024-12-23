@@ -1,7 +1,7 @@
 package com.tralmeida.clients.dto;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.Date;
 
 import com.tralmeida.clients.entities.Client;
 
@@ -12,13 +12,13 @@ public class ClientDTO implements Serializable{
     private String nome;
     private String email;
     private String telefone;
-    private Instant dtNascimento;
-    private Instant dtInclusao;
+    private Date dtNascimento;
+    private Date dtInclusao;
     
     public ClientDTO() {
     }
 
-    public ClientDTO(Long id, String nome, String email, String telefone, Instant dtNascimento, Instant dtInclusao) {
+    public ClientDTO(Long id, String nome, String email, String telefone, Date dtNascimento, Date dtInclusao) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -68,19 +68,19 @@ public class ClientDTO implements Serializable{
         this.telefone = telefone;
     }
 
-    public Instant getdtNascimento() {
+    public Date getdtNascimento() {
         return dtNascimento;
     }
 
-    public void setdtNascimento(Instant dtNascimento) {
+    public void setdtNascimento(Date dtNascimento) {
         this.dtNascimento = dtNascimento;
     }
 
-    public Instant getdtInclusao() {
+    public Date getdtInclusao() {
         return dtInclusao;
     }
 
-    public void setdtInclusao(Instant dtInclusao) {
+    public void setdtInclusao(Date dtInclusao) {
         this.dtInclusao = dtInclusao;
     }
 }

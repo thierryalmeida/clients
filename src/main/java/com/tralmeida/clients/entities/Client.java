@@ -1,7 +1,7 @@
 package com.tralmeida.clients.entities;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -25,14 +25,14 @@ public class Client implements Serializable{
     private String telefone;
     
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant dtNascimento;
+    private Date dtNascimento;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant dtInclusao;
+    private Date dtInclusao;
     
     public Client() {
     }
     
-    public Client(Long id, String nome, String email, String telefone, Instant dtNascimento, Instant dtInclusao) {
+    public Client(Long id, String nome, String email, String telefone, Date dtNascimento, Date dtInclusao) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -73,19 +73,19 @@ public class Client implements Serializable{
         this.telefone = telefone;
     }
 
-    public Instant getDtNascimento() {
+    public Date getDtNascimento() {
         return dtNascimento;
     }
 
-    public void setDtNascimento(Instant dtNascimento) {
+    public void setDtNascimento(Date dtNascimento) {
         this.dtNascimento = dtNascimento;
     }
 
-    public Instant getDtInclusao() {
+    public Date getDtInclusao() {
         return dtInclusao;
     }
 
-    public void setDtInclusao(Instant dtInclusao) {
+    public void setDtInclusao(Date dtInclusao) {
         this.dtInclusao = dtInclusao;
     }
 
