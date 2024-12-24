@@ -35,17 +35,17 @@ public class ClientController {
 		return null;
 	}
 	
-	@GetMapping
+	@GetMapping(value = "/nome")
 	public ResponseEntity<List<ClientDTO>> findByNome(@RequestParam(defaultValue = "") String nome){
 		return null;
 	}
 	
-	@GetMapping
+	@GetMapping(value = "/email")
 	public ResponseEntity<List<ClientDTO>> findByEmail(@RequestParam(defaultValue = "") String email){
 		return null;
 	}
 	
-	@GetMapping
+	@GetMapping(value = "/dtNascimento")
 	public ResponseEntity<List<ClientDTO>> findByDtNascimentoBetWeen(
 			@RequestParam(defaultValue = "") String dtIni, 
 			@RequestParam(defaultValue = "") String dtFim){
@@ -62,7 +62,7 @@ public class ClientController {
 		return null;
 	}
 	
-	@DeleteMapping(value = "{id}")
+	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		return null;
 	}
