@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tralmeida.clients.dto.ClientDTO;
+import com.tralmeida.clients.entities.Client;
 import com.tralmeida.clients.repositories.ClientRepository;
 
 @Service
@@ -21,13 +22,14 @@ public class ClientService {
 	//JPA
 	@Transactional(readOnly = true)
 	public Page<ClientDTO> findAll(Pageable pageable){
-		return null;
+		Page<Client> page = repository.findAll(pageable);
+		return page.map(x -> new ClientDTO(x));
 	}
 	
 	//JPA
 	@Transactional(readOnly = true)
 	public ClientDTO findById(Long id) {
-		return null;
+		return new ClientDTO(repository.findById(id).get());
 	}
 	
 	//JDBC
@@ -51,7 +53,9 @@ public class ClientService {
 	//JPA
 	@Transactional
 	public ClientDTO create(ClientDTO dto) {
-		return null;
+		Client entity = copyDtoToEntity(dto);
+		entity = repository.save(entity);
+		return new ClientDTO(entity);
 	}
 	
 	//JDBC
@@ -63,5 +67,15 @@ public class ClientService {
 	//JDBC
 	public void delete(Long id) {
 		return;
+	}
+	
+	private Client copyDtoToEntity(ClientDTO dto) {
+		return new Client(
+				dto.getId(), 
+				dto.getNome(), 
+				dto.getEmail(), 
+				dto.getTelefone(), 
+				dto.getdtNascimento(), 
+				dto.getdtInclusao());
 	}
 }
