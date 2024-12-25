@@ -1,7 +1,9 @@
 package com.tralmeida.clients.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tralmeida.clients.dto.ClientDTO;
 import com.tralmeida.clients.entities.Client;
+import com.tralmeida.clients.repositories.ClientJdbcRepository;
 import com.tralmeida.clients.repositories.ClientRepository;
 
 @Service
@@ -18,6 +21,9 @@ public class ClientService {
 	
 	@Autowired
 	private ClientRepository repository;
+	
+	@Autowired
+	private ClientJdbcRepository jdbcRepository;
 	
 	//JPA
 	@Transactional(readOnly = true)
@@ -35,7 +41,8 @@ public class ClientService {
 	//JDBC
 	@Transactional(readOnly = true)
 	public List<ClientDTO> findByNome(String nome) {
-		return null;
+		List<Client> list = jdbcRepository.findByNome(nome);
+		return list.stream().map(x -> new ClientDTO(x)).collect(Collectors.toList());
 	}
 	
 	//Native query
@@ -61,12 +68,17 @@ public class ClientService {
 	//JDBC
 	@Transactional
 	public ClientDTO update(Long id, ClientDTO dto) {
-		return null;
+		int updatedLines = jdbcRepository.update(id, copyDtoToEntity(dto));
+		if(updatedLines == 1) {
+			return new ClientDTO(repository.findById(id).get());
+		} else {
+			return null;
+		}
 	}
 	
 	//JDBC
 	public void delete(Long id) {
-		return;
+		jdbcRepository.delete(id);
 	}
 	
 	private Client copyDtoToEntity(ClientDTO dto) {
