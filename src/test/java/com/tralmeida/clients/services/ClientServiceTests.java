@@ -1,5 +1,7 @@
 package com.tralmeida.clients.services;
 
+import static org.mockito.Mockito.mockitoSession;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.tralmeida.clients.dto.ClientDTO;
 import com.tralmeida.clients.entities.Client;
+import com.tralmeida.clients.repositories.ClientJdbcRepository;
 import com.tralmeida.clients.repositories.ClientRepository;
 
 @ExtendWith(SpringExtension.class)
@@ -30,28 +33,38 @@ public class ClientServiceTests {
 	@Mock
 	private ClientRepository repository;
 	
+	@Mock
+	private ClientJdbcRepository jdbcRepository;
+	
 	private Long existingId;
 	private Long nonExistingId;
 	private Client entity;
 	private PageImpl<Client> page;
 	private ClientDTO clientDTO;
+	private String existingName;
+	private int updatedLines;
 	
 	@BeforeEach
 	void setUp() {
 		existingId = 1L;
 		nonExistingId = 2L;
-		
 		entity = new Client();
-		page = new PageImpl<>(List.of(entity));
-		
+		List<Client> list = List.of(entity);
+		page = new PageImpl<>(list);
 		clientDTO = new ClientDTO();
 		
 		Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(entity));
 		Mockito.when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
-		
 		Mockito.when(repository.save(ArgumentMatchers.any())).thenReturn(entity);
-		
 		Mockito.when(repository.findAll((Pageable) ArgumentMatchers.any())).thenReturn(page);
+		
+		existingName = "Fulano Mock";
+		updatedLines = 1;
+		
+		Mockito.when(jdbcRepository.findByNome(existingName)).thenReturn(list);
+		Mockito.when(jdbcRepository.update(existingId, entity)).thenReturn(updatedLines);
+		Mockito.when(jdbcRepository.delete(existingId)).thenReturn(updatedLines);
+		Mockito.when(jdbcRepository.delete(nonExistingId)).thenReturn(0);
 	}
 	
 	@Test
@@ -75,5 +88,25 @@ public class ClientServiceTests {
 		Page<ClientDTO> result = service.findAll(pageable);
 		Assertions.assertNotNull(result);
 		Mockito.verify(repository).findAll(pageable);
+	}
+	
+	@Test
+	public void findByNomeShouldReturnListWhenNameExists() {
+		List<ClientDTO> list = service.findByNome(existingName);
+		Assertions.assertFalse(list.isEmpty());
+		Mockito.verify(jdbcRepository).findByNome(existingName);		
+	}
+	
+	@Test
+	public void updateShouldReturnClientDTOWhenIdExists() {
+		ClientDTO dto = service.update(existingId, clientDTO);
+		Assertions.assertNotNull(dto);
+		Mockito.verify(jdbcRepository).update(existingId, entity);
+	}
+	
+	@Test
+	public void deleteShouldReturnNothingWhenIdExists() {
+		service.delete(existingId);
+		Mockito.verify(jdbcRepository).delete(existingId);
 	}
 }
