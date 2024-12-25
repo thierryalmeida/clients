@@ -40,7 +40,7 @@ public class ClientService {
 	
 	//Native query
 	@Transactional(readOnly = true)
-	public List<ClientDTO> findByEmail(String email) {
+	public ClientDTO findByEmail(String email) {
 		return null;
 	}
 	

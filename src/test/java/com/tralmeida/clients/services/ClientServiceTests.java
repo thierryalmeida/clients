@@ -76,6 +76,4 @@ public class ClientServiceTests {
 		Assertions.assertNotNull(result);
 		Mockito.verify(repository).findAll(pageable);
 	}
-	
-	
 }

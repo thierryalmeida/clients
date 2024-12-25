@@ -7,5 +7,5 @@ import com.tralmeida.clients.entities.Client;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long>{
-
+	
 }
