@@ -27,8 +27,8 @@ public class ClientJdbcRepository {
 		return jdbcTemplate.update(sql, client.getNome(), client.getEmail(), client.getTelefone(), client.getDtNascimento(), client.getId());
 	}
 	
-	public void delete(Long id) {
+	public int delete(Long id) {
 		String sql = "DELETE FROM client WHERE id = ?";
-		jdbcTemplate.update(sql, id);
+		return jdbcTemplate.update(sql, id);
 	}
 }
