@@ -50,10 +50,11 @@ public class ClientJdbcRepositoryIntegrationTests {
 	
 	@Test
 	public void deleteShouldDeleteClientWhenIdExists() {
-		repository.delete(existingIdByExistingNameForDelete);
+		int updatedLines = repository.delete(existingIdByExistingNameForDelete);
 		
 		List<Client> result = repository.findByNome(existingNameForDelete);
 		Assertions.assertTrue(result.isEmpty());
+		Assertions.assertEquals(updatedLines, 1);
 	}
 	
 	@Test
