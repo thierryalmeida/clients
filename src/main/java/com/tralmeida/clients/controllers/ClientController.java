@@ -41,7 +41,7 @@ public class ClientController {
 	}
 	
 	@GetMapping(value = "/email")
-	public ResponseEntity<List<ClientDTO>> findByEmail(@RequestParam(defaultValue = "") String email){
+	public ResponseEntity<ClientDTO> findByEmail(@RequestParam(defaultValue = "") String email){
 		return null;
 	}
 	
