@@ -1,5 +1,7 @@
 package com.tralmeida.clients.services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,7 +55,16 @@ public class ClientService {
 	
 	//Native query
 	@Transactional(readOnly = true)
-	public List<ClientDTO> findByDtNascimentoBetween(Date dtIni, Date dtFim) {
+	public List<ClientDTO> findByDtNascimentoBetween(String dtIniString, String dtFimString) {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date dtIni = null;
+		Date dtFim = null;
+		try {
+			dtFim = sdf.parse(dtFimString);
+			dtIni = sdf.parse(dtIniString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		List<Client> list = repository.searchByDtNascimentoBetween(dtIni, dtFim);
 		return list.stream().map(x -> new ClientDTO(x)).collect(Collectors.toList());
 	}

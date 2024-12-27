@@ -1,5 +1,7 @@
 package com.tralmeida.clients.services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -43,11 +45,13 @@ public class ClientServiceTests {
 	private String existingName;
 	private int updatedLines;
 	private String existingEmail;
+	private String dtIniValidString;
+	private String dtFimValidString;
 	private Date dtIniValid;
 	private Date dtFimValid;
 	
 	@BeforeEach
-	void setUp() {
+	void setUp() throws ParseException {
 		existingId = 1L;
 		nonExistingId = 2L;
 		entity = new Client();
@@ -71,8 +75,11 @@ public class ClientServiceTests {
 		existingEmail = "existing.emails@example.com";
 		Mockito.when(repository.searchByEmail(existingEmail)).thenReturn(list);
 		
-		dtIniValid = new Date();
-		dtFimValid = new Date();
+		dtIniValidString = "01/01/2000";
+		dtFimValidString = "31/01/2000";
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		dtFimValid = sdf.parse(dtFimValidString);
+		dtIniValid = sdf.parse(dtIniValidString);
 		Mockito.when(repository.searchByDtNascimentoBetween(dtIniValid, dtFimValid)).thenReturn(list);
 	}
 	
@@ -128,7 +135,7 @@ public class ClientServiceTests {
 	
 	@Test
 	public void findByDtNascimentoBetweenValidIntervalShouldReturnList() {
-		List<ClientDTO> list = service.findByDtNascimentoBetween(dtIniValid, dtFimValid);
+		List<ClientDTO> list = service.findByDtNascimentoBetween(dtIniValidString, dtFimValidString);
 		Assertions.assertFalse(list.isEmpty());
 		Mockito.verify(repository).searchByDtNascimentoBetween(dtIniValid, dtFimValid);
 	}
