@@ -123,13 +123,13 @@ public class ClientServiceTests {
 	public void findByEmailShouldReturnListWhenEmailExists() {
 		List<ClientDTO> list = service.findByEmail(existingEmail);
 		Assertions.assertFalse(list.isEmpty());
-		Mockito.verify(repository.searchByEmail(existingEmail));
+		Mockito.verify(repository).searchByEmail(existingEmail);
 	}
 	
 	@Test
 	public void findByDtNascimentoBetweenValidIntervalShouldReturnList() {
 		List<ClientDTO> list = service.findByDtNascimentoBetween(dtIniValid, dtFimValid);
 		Assertions.assertFalse(list.isEmpty());
-		Mockito.verify(repository.searchByDtNascimentoBetween(dtIniValid, dtFimValid));
+		Mockito.verify(repository).searchByDtNascimentoBetween(dtIniValid, dtFimValid);
 	}
 }
