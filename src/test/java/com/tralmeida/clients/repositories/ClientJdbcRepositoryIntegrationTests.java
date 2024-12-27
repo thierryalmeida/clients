@@ -31,7 +31,7 @@ public class ClientJdbcRepositoryIntegrationTests {
 		existingName = "Gabriela Almeida";
 		existingIdByExistingName = 7L;
 		
-		existingNameForDelete = "Silva";
+		existingNameForDelete = "Ana Silva";
 		existingIdByExistingNameForDelete = 1L;
 		
 		oldName = "Bruno Costa";
