@@ -61,7 +61,9 @@ public class ClientJdbcRepositoryIntegrationTests {
 	public void updateShouldUpdateWhenIdExists() {
 		List<Client> list = repository.findByNome(oldName);
 		Client client = list.get(0);
-		client.setNome(nameForUpdateByOldName);;
+		client.setNome(nameForUpdateByOldName);
+		client.setId(null);
+		client.setDtInclusao(null);
 		
 		int updatedLines = repository.update(existingIdByOldName, client);
 		Assertions.assertEquals(1, updatedLines);

@@ -24,7 +24,7 @@ public class ClientJdbcRepository {
 	public int update(Long id, Client client) {
 		String sql = "UPDATE client SET nome = ?, email = ?, telefone = ?, dtnascimento = ? "
 				+ "WHERE id = ?";
-		return jdbcTemplate.update(sql, client.getNome(), client.getEmail(), client.getTelefone(), client.getDtNascimento(), client.getId());
+		return jdbcTemplate.update(sql, client.getNome(), client.getEmail(), client.getTelefone(), client.getDtNascimento(), id);
 	}
 	
 	public int delete(Long id) {
