@@ -13,7 +13,9 @@ import com.tralmeida.clients.entities.Client;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long>{
 	
-	List<Client> findByEmail(String email);
+	@Query(nativeQuery = true, value = "SELECT * FROM client WHERE client.email = :email")
+	List<Client> searchByEmail(String email);
 	
-	List<Client> findByDtNascimentoBetween(Date dtIni, Date dtFim);
+	@Query(nativeQuery = true, value = "SELECT * FROM client WHERE dtNascimento BETWEEN :dtIni AND :dtFim")
+	List<Client> searchByDtNascimentoBetween(Date dtIni, Date dtFim);
 }
