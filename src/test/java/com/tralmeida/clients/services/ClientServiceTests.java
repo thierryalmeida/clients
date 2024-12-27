@@ -1,7 +1,6 @@
 package com.tralmeida.clients.services;
 
-import static org.mockito.Mockito.mockitoSession;
-
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +42,9 @@ public class ClientServiceTests {
 	private ClientDTO clientDTO;
 	private String existingName;
 	private int updatedLines;
+	private String existingEmail;
+	private Date dtIniValid;
+	private Date dtFimValid;
 	
 	@BeforeEach
 	void setUp() {
@@ -65,6 +67,13 @@ public class ClientServiceTests {
 		Mockito.when(jdbcRepository.update(existingId, entity)).thenReturn(updatedLines);
 		Mockito.when(jdbcRepository.delete(existingId)).thenReturn(updatedLines);
 		Mockito.when(jdbcRepository.delete(nonExistingId)).thenReturn(0);
+		
+		existingEmail = "existing.emails@example.com";
+		Mockito.when(repository.searchByEmail(existingEmail)).thenReturn(list);
+		
+		dtIniValid = new Date();
+		dtFimValid = new Date();
+		Mockito.when(repository.searchByDtNascimentoBetween(dtIniValid, dtFimValid)).thenReturn(list);
 	}
 	
 	@Test
@@ -108,5 +117,19 @@ public class ClientServiceTests {
 	public void deleteShouldReturnNothingWhenIdExists() {
 		service.delete(existingId);
 		Mockito.verify(jdbcRepository).delete(existingId);
+	}
+	
+	@Test
+	public void findByEmailShouldReturnListWhenEmailExists() {
+		List<ClientDTO> list = service.findByEmail(existingEmail);
+		Assertions.assertFalse(list.isEmpty());
+		Mockito.verify(repository.searchByEmail(existingEmail));
+	}
+	
+	@Test
+	public void findByDtNascimentoBetweenValidIntervalShouldReturnList() {
+		List<ClientDTO> list = service.findByDtNascimentoBetween(dtIniValid, dtFimValid);
+		Assertions.assertFalse(list.isEmpty());
+		Mockito.verify(repository.searchByDtNascimentoBetween(dtIniValid, dtFimValid));
 	}
 }
