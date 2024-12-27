@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +27,9 @@ public class ClientController {
 	private ClientService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<ClientDTO>> findAll(){
-		return null;
+	public ResponseEntity<Page<ClientDTO>> findAll(Pageable pageable){
+		Page<ClientDTO> page = service.findAll(pageable);
+		return ResponseEntity.ok(page);
 	}
 	
 	@GetMapping(value = "/{id}")
@@ -41,7 +43,7 @@ public class ClientController {
 	}
 	
 	@GetMapping(value = "/email")
-	public ResponseEntity<ClientDTO> findByEmail(@RequestParam(defaultValue = "") String email){
+	public ResponseEntity<List<ClientDTO>> findByEmail(@RequestParam(defaultValue = "") String email){
 		return null;
 	}
 	
