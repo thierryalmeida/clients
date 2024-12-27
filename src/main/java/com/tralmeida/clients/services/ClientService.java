@@ -1,6 +1,5 @@
 package com.tralmeida.clients.services;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,14 +46,16 @@ public class ClientService {
 	
 	//Native query
 	@Transactional(readOnly = true)
-	public ClientDTO findByEmail(String email) {
-		return null;
+	public List<ClientDTO> findByEmail(String email) {
+		List<Client> list = repository.searchByEmail(email);
+		return list.stream().map(x -> new ClientDTO(x)).collect(Collectors.toList());
 	}
 	
 	//Native query
 	@Transactional(readOnly = true)
 	public List<ClientDTO> findByDtNascimentoBetween(Date dtIni, Date dtFim) {
-		return null;
+		List<Client> list = repository.searchByDtNascimentoBetween(dtIni, dtFim);
+		return list.stream().map(x -> new ClientDTO(x)).collect(Collectors.toList());
 	}
 	
 	//JPA
